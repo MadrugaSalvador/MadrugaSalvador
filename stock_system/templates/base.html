@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Estoque</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Sistema de Estoque</h2>
+        </div>
+        <ul>
+            <li><a href="{{ url_for('inventory.show_inventory') }}">📦 Estoque</a></li>
+            <li><a href="{{ url_for('producao.show_producao') }}">🏭 Produção</a></li>
+            <li><a href="{{ url_for('clientes.show_clientes') }}">👥 Clientes</a></li>
+            <li><a href="{{ url_for('fornecedores.show_fornecedores') }}">🚚 Fornecedores</a></li>
+            <li><a href="{{ url_for('relatorios.show_relatorios') }}">📊 Relatórios</a></li>
+            <li><a href="/logout">🚪 Logout</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <header>
+            <h1>Bem-vindo ao Sistema de Estoque</h1>
+        </header>
+        {% block content %}
+        <h2>Inventário</h2>
+        <div class="inventory-table">
+            <table id="inventory-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>PN</th>
+                        <th>Nome do Produto</th>
+                        <th>Modelo</th>
+                        <th>Grupo do Produto</th>
+                        <th>NCM</th>
+                        <th>Estoque Min</th>
+                        <th>Estoque Max</th>
+                        <th>Quantidade em Estoque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Linhas preenchidas via AJAX -->
+                </tbody>
+            </table>
+        </div>
+        <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url: "{{ url_for('api_inventario') }}",
+                    method: 'GET',
+                    success: function(data) {
+                        let tableBody = $('#inventory-table tbody');
+                        tableBody.empty(); // Limpa a tabela antes de adicionar novos dados
+                        data.forEach(function(produto) {
+                            let row = `<tr>
+                                <td>${produto.id}</td>
+                                <td>${produto.PN}</td>
+                                <td>${produto.nome_produto}</td>
+                                <td>${produto.modelo}</td>
+                                <td>${produto.grupo_do_produto}</td>
+                                <td>${produto.NCM}</td>
+                                <td>${produto.estoque_min}</td>
+                                <td>${produto.estoque_max}</td>
+                                <td>${produto.Qtd_em_estoque}</td>
+                            </tr>`;
+                            tableBody.append(row);
+                        });
+                    },
+                    error: function() {
+                        alert('Erro ao carregar dados do inventário.');
+                    }
+                });
+            });
+        </script>
+        {% endblock %}
+    </div>
+</body>
+</html>
