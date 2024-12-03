@@ -24,9 +24,24 @@
     <div class="main-content">
         <header>
             <h1>Bem-vindo ao Sistema de Estoque</h1>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#">Entradas</a></li>
+                    <li><a href="#">Saídas</a></li>
+                    <li><a href="#">Inventário</a></li>
+                    <li><a href="#">Cadastrar Equipamento</a></li>
+                    <li><input type="text" placeholder="Buscar produto..." /></li>
+                </ul>
+            </nav>
         </header>
         {% block content %}
-        <h2>Inventário</h2>
+        <h2>Controle de Estoque</h2>
+        <p>Gerencie suas entradas e saídas de forma eficiente</p>
+        <div class="controls">
+            <input type="text" placeholder="Buscar produto..." />
+            <button class="btn">Adicionar Saída</button>
+            <button class="btn">Adicionar Entrada</button>
+        </div>
         <div class="inventory-table">
             <table id="inventory-table">
                 <thead>

@@ -35,7 +35,7 @@
         {% block content %}
         <h2>Controle de Estoque</h2>
         <p>Gerencie suas entradas e saídas de forma eficiente</p>
-
+        
         <!-- Filtros para a Tabela -->
         <div class="filters">
             <input type="text" id="filter-pn" placeholder="Filtrar por PN">
@@ -49,60 +49,6 @@
             <button class="btn" id="btn-adicionar-saida">Adicionar Saída</button>
             <button class="btn" id="btn-adicionar-entrada">Adicionar Entrada</button>
             <button class="btn" id="btn-cadastrar-novo-produto">Cadastrar Novo Produto</button>
-        </div>
-
-        <!-- Formulário de Cadastro de Entrada de Estoque (Oculto Inicialmente) -->
-        <div class="inventory-form" id="form-entrada-estoque" style="display: none;">
-            <form action="{{ url_for('inventory.add_entrada') }}" method="post">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="produto_id">ID do Produto:</label>
-                        <input type="number" id="produto_id" name="produto_id" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="quantidade">Quantidade:</label>
-                        <input type="number" id="quantidade" name="quantidade" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="data_entrada">Data de Entrada:</label>
-                        <input type="date" id="data_entrada" name="data_entrada" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nfe">NFE:</label>
-                        <input type="text" id="nfe" name="nfe" required>
-                    </div>
-                </div>
-                <button type="submit" class="btn">Adicionar Entrada</button>
-            </form>
-        </div>
-
-        <!-- Formulário de Cadastro de Saída de Estoque (Oculto Inicialmente) -->
-        <div class="inventory-form" id="form-saida-estoque" style="display: none;">
-            <form action="{{ url_for('inventory.add_saida') }}" method="post">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="produto_id_saida">ID do Produto:</label>
-                        <input type="number" id="produto_id_saida" name="produto_id_saida" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="quantidade_saida">Quantidade:</label>
-                        <input type="number" id="quantidade_saida" name="quantidade_saida" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="data_saida">Data de Saída:</label>
-                        <input type="date" id="data_saida" name="data_saida" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cliente">Cliente:</label>
-                        <input type="text" id="cliente" name="cliente" required>
-                    </div>
-                </div>
-                <button type="submit" class="btn">Adicionar Saída</button>
-            </form>
         </div>
 
         <!-- Formulário de Cadastro de Produto (Oculto Inicialmente) -->
@@ -182,12 +128,11 @@
                         tableBody.empty(); // Limpa a tabela antes de adicionar novos dados
                         data.forEach(function(produto) {
                             let row = `<tr>
-                                <td>${produto.id_produto}</td>
+                                <td>${produto.id}</td>
                                 <td>${produto.PN}</td>
                                 <td>${produto.nome_produto}</td>
                                 <td>${produto.modelo}</td>
                                 <td>${produto.grupo_do_produto}</td>
-                                                               <td>${produto.grupo_do_produto}</td>
                                 <td>${produto.NCM}</td>
                                 <td>${produto.estoque_min}</td>
                                 <td>${produto.estoque_max}</td>
@@ -204,24 +149,6 @@
 
             document.getElementById('btn-cadastrar-novo-produto').addEventListener('click', function() {
                 var form = document.getElementById('form-cadastro-produto');
-                if (form.style.display === 'none') {
-                    form.style.display = 'block';
-                } else {
-                    form.style.display = 'none';
-                }
-            });
-
-            document.getElementById('btn-adicionar-entrada').addEventListener('click', function() {
-                var form = document.getElementById('form-entrada-estoque');
-                if (form.style.display === 'none') {
-                    form.style.display = 'block';
-                } else {
-                    form.style.display = 'none';
-                }
-            });
-
-            document.getElementById('btn-adicionar-saida').addEventListener('click', function() {
-                var form = document.getElementById('form-saida-estoque');
                 if (form.style.display === 'none') {
                     form.style.display = 'block';
                 } else {

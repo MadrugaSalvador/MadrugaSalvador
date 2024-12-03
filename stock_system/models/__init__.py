@@ -33,3 +33,4 @@ def get_inventario():
         finally:
             connection.close()
     return produtos
+
